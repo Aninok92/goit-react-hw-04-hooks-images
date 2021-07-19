@@ -7,7 +7,7 @@ function fetchImage(name, page) {
       return response.json().then((data) => data.hits);
     }
 
-    return Promise.reject(new Error(`Нет покемона с именем ${name}`));
+    return Promise.reject(new Error(`No image`));
   });
 }
 

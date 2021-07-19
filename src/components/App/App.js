@@ -1,42 +1,34 @@
-import { Component } from "react";
+import React, { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import Container from "../Container/Container";
 import Searchbar from "../Searchbar/Searchbar";
 import ImageGallery from "../ImageGallery/ImageGallery.js";
 import Modal from "../Modal/Modal";
 
-class App extends Component {
-  state = {
-    imageName: null,
-    selectedImage: null,
+function App() {
+  const [query, setQuery] = useState("");
+  const [selectedImage, setSelectedImage] = useState("");
+
+  const handleFormSubmit = (value) => {
+    setQuery(value);
   };
 
-  handleFormSubmit = (value) => {
-    this.setState({ imageName: value });
+  const handleSelectImage = (imageUrl) => {
+    setSelectedImage(imageUrl);
   };
 
-  handleSelectImage = (imageUrl) => this.setState({ selectedImage: imageUrl });
+  const handleCloseModal = () => setSelectedImage("");
 
-  handleCloseModal = () => this.setState({ selectedImage: null });
-
-  render() {
-    return (
-      <Container>
-        <Searchbar onSubmit={this.handleFormSubmit} />
-        <ImageGallery
-          imageName={this.state.imageName}
-          onSelectImage={this.handleSelectImage}
-        />
-        {this.state.selectedImage && (
-          <Modal
-            selectImage={this.state.selectedImage}
-            onClose={this.handleCloseModal}
-          />
-        )}
-        <Toaster position="top-right" />
-      </Container>
-    );
-  }
+  return (
+    <Container>
+      <Searchbar onSubmit={handleFormSubmit} />
+      <ImageGallery query={query} onSelectImage={handleSelectImage} />
+      {selectedImage && (
+        <Modal selectImage={selectedImage} onClose={handleCloseModal} />
+      )}
+      <Toaster position="top-right" />
+    </Container>
+  );
 }
 
 export default App;
