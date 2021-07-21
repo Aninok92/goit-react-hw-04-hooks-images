@@ -19,7 +19,7 @@ export default function ImageGallery({ query, onSelectImage }) {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState(Status.IDLE);
-  const [, setError] = useState(null);
+  const [_, setError] = useState(null);
 
   useEffect(() => {
     onChangeQuery();
